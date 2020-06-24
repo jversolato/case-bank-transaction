@@ -1,0 +1,65 @@
+server:
+   servlet:
+     context-path: /
+   port: 9080
+   compression:
+      enable: true
+      mime-types:
+        - application/json
+        - text/html
+        - text/xml
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: monitor-start-input
+  output:
+    ansi:
+      enabled: DETECT
+  data:
+    mongodb:
+      database: ${ENV_DBMONGO:monitor}
+      host: ${ENV_MONGOURL:localhost}
+      password: mypass
+      port: 27017
+      repositories:
+        enabled: true
+      
+  http:
+    encoding:
+      charset: UTF-8
+
+  activemq:
+    pool:
+      enabled: true
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+  jms:
+    pub-sub-domain: false
+
+
+
+logging:
+   level:
+     root: info
+
+application:
+  fl:
+    monitor:
+      channel:
+        mobile:
+          input: ${ENV_FL_INPUT_MOBILE:fl.monitor.channel.mobile.input}
+          input: ${ENV_FL_INPUT_MOBILE:fl.monitor.channel.mobile.output}
+        ib:
+          input: ${ENV_FL_INPUT_IB:fl.monitor.channel.ib.input}
+          output: ${ENV_FL_INPUT_IB:fl.monitor.channel.ib.output}
+        agency:
+          input: ${ENV_FL_INPUT_IB:fl.monitor.channel.agency.input}
+          output:  ${ENV_FL_INPUT_IB:fl.monitor.channel.creditcard.input}
+        creditcard:
+          input: ${ENV_FL_INPUT_CREDITCARD:fl.monitor.channel.creditcard.input}
+          output:  ${ENV_FL_INPUT_CREDITCARD:fl.monitor.channel.creditcard.output}
+          
+
